@@ -1,0 +1,22 @@
+[package]
+name = "etebase-csharp"
+description = "C# bindings to etebase-rs"
+homepage = "https://www.etebase.com"
+repository = "https://github.com/etesync/etesync-rs/tree/etebase/python/"
+version = "0.1.0"
+authors = ["Tom Hacohen <tom@stosb.com>"]
+edition = "2018"
+license = "BSD-3-Clause"
+readme = "README.md"
+
+[lib]
+crate-type = ["cdylib"]
+
+[build-dependencies]
+rust_swig = { git = "https://github.com/tasn/flapigen-rs", rev = "b2d8a1f801bb204066d496066e9477fef617dd15" }
+env_logger = "^0.7"
+log = "^0.4.6"
+
+[dependencies]
+openssl = { version = "0.10.30", features = ["vendored"] }
+etebase = { version = "^0.4.1" }

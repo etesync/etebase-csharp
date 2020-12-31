@@ -1,8 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -23,13 +21,26 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Build
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+
+      - name: Build Rust
         run: |
-          cargo build
+          cargo build --release
+
+      - name: Build Dotnet
+        run: |
+          cd target/dotnet-out/
+          # Try copying each dll and fail if none work
+          cp ../*/*.dylib . || cp ../*/*.so . || cp ../*/*.dll .
+          # FIXME: Also build for Linux/Mac, apparently this builds just for Windows even on Linux/Mac
+          dotnet build
+        shell: bash
+
 
       - uses: actions/upload-artifact@v2
         with:
           path: |
-            ./target/*/*.so
-            ./target/*/*.dylib
-            ./target/*/*.dll
+            ./target/dotnet-out/**/*.so
+            ./target/dotnet-out/**/*.dylib
+            ./target/dotnet-out/**/*.dll

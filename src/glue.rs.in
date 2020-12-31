@@ -37,7 +37,7 @@ use etebase::{
 use crate::fixes::FetchOptions;
 
 foreign_class!(class Utils {
-    fn from_base64(string: &str) -> Result<Vec<u8>, Error>;
+    fn from_base64(content: &str) -> Result<Vec<u8>, Error>;
     fn to_base64(bytes: &[u8]) -> Result<String, Error>;
     fn randombytes(size: usize) -> Vec<u8>;
     fn pretty_fingerprint(content: &[u8]) -> String;
@@ -122,7 +122,7 @@ foreign_class!(class Account {
     fn Account_::signup_key(client: &Client, user: &User, main_Key: Vec<u8>) -> Result<Account, Error>;
     fn Account::fetch_token(&mut self) -> Result<(), Error>;
     fn Account::force_server_url(&mut self, api_base: &str) -> Result<(), Error>;
-    fn Account::change_password(&mut self, password: &str) -> Result<(), Error>;
+    fn Account::change_password(&mut self, password: &str) -> Result<(), Error>; alias ChangePassword;
     fn Account::logout(&mut self) -> Result<(), Error>;
     fn Account::collection_manager(&self) -> Result<CollectionManager, Error>; alias get_collection_manager;
     fn Account::invitation_manager(&self) -> Result<CollectionInvitationManager, Error>; alias get_invitation_manager;

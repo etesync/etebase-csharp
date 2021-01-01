@@ -5,7 +5,7 @@
 
 A C# library for Etebase
 
-**Star** and **watch** to show your interest and get notified once it's ready!
+**Star** and **watch** for updates.
 
 ![GitHub tag](https://img.shields.io/github/tag/etesync/etebase-csharp.svg)
 [![Build Status](https://github.com/etesync/etebase-csharp/workflows/Build/badge.svg)](https://github.com/etesync/etebase-csharp/actions/)

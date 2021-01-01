@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+
+      - name: Build Rust
+        run: |
+          cargo build --release
+
+      - name: Build Dotnet
+        run: |
+          cd target/dotnet-out/
+          # Try copying each dll and fail if none work
+          cp ../*/*.dylib . || cp ../*/*.so . || cp ../*/*.dll .
+          # FIXME: Also build for Linux/Mac, apparently this builds just for Windows even on Linux/Mac
+          dotnet build
+        shell: bash
+
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: |
+            ./target/dotnet-out/**/*.so
+            ./target/dotnet-out/**/*.dylib
+            ./target/dotnet-out/**/*.dll

@@ -14,7 +14,7 @@ name = "etebase_csharp_native"
 crate-type = ["cdylib"]
 
 [build-dependencies]
-rust_swig = { git = "https://github.com/tasn/flapigen-rs", rev = "b2d8a1f801bb204066d496066e9477fef617dd15" }
+rust_swig = { git = "https://github.com/tasn/flapigen-rs", rev = "e35c69a83895ef5ff7a2f980637ecf0f5c0bf943" }
 env_logger = "^0.7"
 log = "^0.4.6"
 
